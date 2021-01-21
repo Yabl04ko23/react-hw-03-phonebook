@@ -12,17 +12,16 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log("mount");
-    this.setState(() => {
-      return { contacts: JSON.parse(localStorage.getItem("contacts")) };
-    });
-    console.log(this.state.contacts);
+    let localContacts = JSON.parse(localStorage.getItem("contacts"));
+    if (!localContacts) {
+      this.setState(() => {
+        return { contacts: localContacts };
+      });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("upd");
     if (prevState !== this.state.contacts) {
-      console.log("storaged");
       localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
     }
   }
